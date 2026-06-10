@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Max Station · 我的工作台</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛰️</text></svg>">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar">
+    <div class="logo">🛰️ <span>Max Station</span></div>
+    <nav id="nav"></nav>
+    <div class="sidebar-foot">
+      <button id="btn-export" class="ghost-btn" title="把所有数据下载成一个 JSON 文件">⬇️ 备份数据</button>
+      <button id="btn-import" class="ghost-btn" title="从 JSON 备份文件恢复数据">⬆️ 恢复备份</button>
+      <input type="file" id="import-file" accept="application/json,.json" hidden>
+      <div id="visit-stat" class="visit-stat">👀 访问 <span id="busuanzi_value_site_pv">–</span> 次</div>
+    </div>
+  </aside>
+  <main id="main"></main>
+</div>
+<div id="toast-wrap"></div>
+
+<!-- 骨架层 -->
+<script src="js/app.js"></script>
+<script src="js/store.js"></script>
+<!-- 功能模块(注册顺序 = 侧边栏顺序) -->
+<script src="js/modules/dashboard.js"></script>
+<script src="js/modules/kanban.js"></script>
+<script src="js/modules/calendar.js"></script>
+<script src="js/modules/notes.js"></script>
+<script src="js/modules/pomodoro.js"></script>
+<script src="js/modules/games.js"></script>
+<!-- 游戏(通过 App.registerGame 挂进游戏厅) -->
+<script src="js/games/game-2048.js"></script>
+<script src="js/games/snake.js"></script>
+<script src="js/games/minesweeper.js"></script>
+<script src="js/games/memory.js"></script>
+<script>document.addEventListener('DOMContentLoaded', () => App.init());</script>
+<script>
+// 访客统计(不蒜子):只在线上启用,本地预览不计数也不显示
+if (location.hostname.endsWith('github.io')) {
+  const s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
+  document.head.appendChild(s);
+} else {
+  document.getElementById('visit-stat').style.display = 'none';
+}
+</script>
+</body>
+</html>
