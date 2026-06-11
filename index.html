@@ -16,7 +16,7 @@
       <button id="btn-export" class="ghost-btn" title="把所有数据下载成一个 JSON 文件">⬇️ 备份数据</button>
       <button id="btn-import" class="ghost-btn" title="从 JSON 备份文件恢复数据">⬆️ 恢复备份</button>
       <input type="file" id="import-file" accept="application/json,.json" hidden>
-      <div id="visit-stat" class="visit-stat">👀 访问 <span id="busuanzi_value_site_pv">–</span> 次</div>
+      <div id="visit-stat" class="visit-stat">👀 访问 <span id="visit-count">–</span> 次</div>
     </div>
   </aside>
   <main id="main"></main>
@@ -40,12 +40,19 @@
 <script src="js/games/memory.js"></script>
 <script>document.addEventListener('DOMContentLoaded', () => App.init());</script>
 <script>
-// 访客统计(不蒜子):只在线上启用,本地预览不计数也不显示
+// 访客统计:GoatCounter,和 max-huang 主页共用同一个后台 maxdev.goatcounter.com
+// 只在线上统计;本地预览不计数也不显示
 if (location.hostname.endsWith('github.io')) {
   const s = document.createElement('script');
   s.async = true;
-  s.src = 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
+  s.dataset.goatcounter = 'https://maxdev.goatcounter.com/count';
+  s.src = 'https://gc.zgo.at/count.js';
   document.head.appendChild(s);
+  // 侧边栏的可见计数(需要 GoatCounter 设置里开启 visitor counter;没开就安静隐藏)
+  fetch('https://maxdev.goatcounter.com/counter//max-station/.json')
+    .then(r => r.ok ? r.json() : Promise.reject())
+    .then(d => { document.getElementById('visit-count').textContent = String(d.count).trim(); })
+    .catch(() => { document.getElementById('visit-stat').style.display = 'none'; });
 } else {
   document.getElementById('visit-stat').style.display = 'none';
 }
