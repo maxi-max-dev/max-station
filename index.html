@@ -57,5 +57,13 @@ if (location.hostname.endsWith('github.io')) {
   document.getElementById('visit-stat').style.display = 'none';
 }
 </script>
+<script>
+// Microsoft Clarity 行为回放：仅线上注入，本地预览不收集
+if (location.hostname.endsWith('github.io')) {
+  (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","x653yfhj1g");
+}
+</script>
 </body>
 </html>
